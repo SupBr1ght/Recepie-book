@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export class MealService {
-    static async fetchMeals(filters: { country?: string; ingredient?: string }): Promise<any> {
+    static async fetchMeals<T>(filters: { country?: string; ingredient?: string }): Promise<T> {
         console.log("Service get filters 😍");
 
         const { country, ingredient } = filters; // destructurize our object
