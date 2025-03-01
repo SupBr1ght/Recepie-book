@@ -3,6 +3,6 @@ import { MealController } from "../controller/mealController";
 
 const router = Router();
 
-router.get('/meals', MealController.getMeals)
+router.get('/', MealController.getMeals)
 
 export default router
