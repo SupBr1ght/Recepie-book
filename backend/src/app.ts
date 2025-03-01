@@ -1,5 +1,6 @@
 import express from "express";
 import mealRoutes from "./routes/mealRoutes";
+import infoRoutes from "./routes/infoRoutes";
 
 const app = express(); // Створюємо сервер
 const port = 3000;
@@ -8,11 +9,10 @@ const port = 3000;
 app.use(express.json());
 
 app.use('/meals', mealRoutes)
-
+app.use('/info', infoRoutes )
 
 
 app.get('/', (req, res)=>{
-  console.log("➡️ Отримано запит:", req.method, req.url)
   res.send("Hello");
 })
 
