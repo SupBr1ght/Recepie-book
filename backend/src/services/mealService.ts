@@ -1,10 +1,10 @@
 import axios from "axios";
 
 export class MealService {
-    static async fetchMeals<T>(filters: { country?: string; ingredient?: string }): Promise<T> {
+    static async fetchMeals<T>(filters: { country?: string; ingredient?: string; category?: string }): Promise<T> {
         console.log("Service get filters 😍");
 
-        const { country, ingredient } = filters; // destructurize our object
+        const { country, ingredient, category } = filters; // destructurize our object
         let url = "https://www.themealdb.com/api/json/v1/1/search.php?s=" //all our meals
 
         if (country) {
@@ -13,6 +13,9 @@ export class MealService {
         } else if(ingredient){
             url = `https:/www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
             console.log('Filter by ingredient');
+        } else if(category){
+            url = `https:/www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
+
         }
         try {
             console.log("🌐 processing API request:", url);
@@ -20,10 +23,7 @@ export class MealService {
             return response.data.meals || [];
         } catch (error) {
             console.error("❌ Помилка при запиті до API:", error);
-            throw new Error("Failed to fetch meals ❌");
+            throw new Error("Failed to fetch recepie or meal/s ❌");
         }
-       
-       
-
     }
 }

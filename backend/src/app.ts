@@ -9,6 +9,8 @@ app.use(express.json());
 
 app.use('/meals', mealRoutes)
 
+
+
 app.get('/', (req, res)=>{
   console.log("➡️ Отримано запит:", req.method, req.url)
   res.send("Hello");
