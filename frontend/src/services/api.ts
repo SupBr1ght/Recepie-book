@@ -17,6 +17,9 @@ export const fetchSpecMeal = async (id: string): Promise<any> => {
 
 export const fetchFilteredMeals = async (filterType: "country" | "ingredient", filterValue: string) => {
     try {
+        const url = `http://localhost:3000/filter/${filterType}/${filterValue}`;
+        console.log("🔍 Відправляємо запит на:", url);
+
         const response = await axios.get(`http://localhost:3000/meals/filter?${filterType}=${filterValue}`);
         console.log("🔍 API response:", response.data);
         return response.data;

@@ -31,14 +31,14 @@ const RecipeListPage = () => {
     <div className="p-6 max-w-3xl mx-auto">
       <h2 className="text-2xl font-bold text-center mb-4">
         {filterType === "country"
-          ? `Рецепти з ${filterValue}`
-          : `Рецепти з інгредієнтом ${filterValue}`}
+          ? `recept value : ${filterValue}`
+          : `recept wih country:  ${filterValue}`}
       </h2>
       <ul className="grid grid-cols-2 gap-4">
         {meals.map((meal) => (
           <li key={meal.idMeal}>
             <Link
-              to={`/ingredient/${meal.idMeal}`}
+              to={filterType === "ingredient" ? `/meal/${meal.idMeal}` : `/filter/country/${meal.strMeal}`}
               className="text-blue-500 hover:underline"
             >
               {meal.strMeal}

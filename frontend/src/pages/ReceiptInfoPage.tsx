@@ -69,12 +69,13 @@ const ReceiptInfoPage = () => {
         <h3 className="text-2xl font-semibold text-center">Ingredients</h3>
         <ul className="grid grid-cols-2 gap-2 mt-4 text-center">
           {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => {
-            const ingredient = `strIngredient${num}` as keyof Meal;
+            const ingredientKey = `strIngredient${num}` as keyof Meal;
+            const ingredient = meal[ingredientKey];
             if (!ingredient) return null;
             return (
               <li key={num}>
                 <Link
-                  to={`/ingredient/${ingredient}`}
+                  to={`/filter/ingredient/${ingredient}`}
                   className="text-blue-500 hover:underline"
                 >
                   {ingredient}

@@ -7,11 +7,11 @@ export class MealService {
         let url = "https://www.themealdb.com/api/json/v1/1/search.php?s=" //all our meals
 
         if (country) {
-            url = `https:/www.themealdb.com/api/json/v1/1/filter.php?a=${country}`
+            url = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${country}`
         } else if(ingredient){
-            url = `https:/www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
+            url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
         } else if(category){
-            url = `https:/www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
+            url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
 
         }
         try {
