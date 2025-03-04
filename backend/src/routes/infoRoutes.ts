@@ -3,6 +3,6 @@ import { MealController } from "../controller/mealController";
 
 const router = Router();
 
-router.get('/', MealController.getInfoAboutMeals)
+router.get('/:id', MealController.getInfoAboutMeals)
 
 export default router
