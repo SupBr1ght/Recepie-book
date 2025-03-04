@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchSpecMeal } from "../services/api";
-import { Meal } from "../services/Meal";
+import { Meal } from "../types/Meal";
 
 const ReceiptInfoPage = () => {
   const { idMeal } = useParams<{ idMeal?: string }>();
@@ -52,7 +52,7 @@ const ReceiptInfoPage = () => {
             {meal.strMeal || "name is undefined"}
           </h2>
           <Link
-            to={`/area/${meal.strArea}`}
+            to={`/filter/country/${meal.strArea}`}
             className="text-blue-500 hover:underline mt-2"
           >
             {meal.strArea}

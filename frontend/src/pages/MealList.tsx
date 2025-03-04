@@ -1,5 +1,5 @@
 import { fetchMeals } from "../services/api";
-import { Meal } from "../services/Meal";
+import { Meal } from "../types/Meal";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 

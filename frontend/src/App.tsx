@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchMeals } from "./services/api";
-import { Meal } from "./services/Meal";
+import { Meal } from "./types/Meal";
 import MealList from "./pages/MealList";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import IngredientPage from "./pages/ReceiptInfoPage";

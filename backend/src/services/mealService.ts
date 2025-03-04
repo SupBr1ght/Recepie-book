@@ -8,9 +8,9 @@ export class MealService {
 
         if (country) {
             url = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${country}`
-        } else if(ingredient){
+        } else if (ingredient) {
             url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
-        } else if(category){
+        } else if (category) {
             url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
 
         }

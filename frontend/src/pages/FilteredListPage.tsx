@@ -9,23 +9,32 @@ const RecipeListPage = () => {
     filterValue?: string;
   }>();
   const [meals, setMeals] = useState<{ idMeal: string; strMeal: string }[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!filterType || !filterValue) return;
 
     const loadMeals = async () => {
-      const data = await fetchFilteredMeals(
-        filterType as "country" | "ingredient",
-        filterValue
-      );
-      setMeals(data);
+      try {
+        console.log(`🔍 Запитуємо дані для: ${filterType} = ${filterValue}`);
+        const data = await fetchFilteredMeals(
+          filterType as "country" | "ingredient" | "category",
+          filterValue
+        );
+
+        if (!data || data.length === 0) {
+          setError("❌ Рецептів не знайдено.");
+        } else {
+          setMeals(data);
+          setError(null);
+        }
+      } catch (err) {
+        setError("❌ Помилка отримання даних.");
+      }
     };
 
     loadMeals();
   }, [filterType, filterValue]);
-
-  if (!meals.length)
-    return <p className="text-center">❌ recepts is undefined </p>;
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
@@ -38,9 +47,11 @@ const RecipeListPage = () => {
         {meals.map((meal) => (
           <li key={meal.idMeal}>
             <Link
-              to={filterType === "ingredient" ? `/meal/${meal.idMeal}` : `/filter/country/${meal.strMeal}`}
+              to={`/filter/${filterType}/${filterValue}`}
+            
               className="text-blue-500 hover:underline"
             >
+             
               {meal.strMeal}
             </Link>
           </li>
