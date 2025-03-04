@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL
-console.log("ENV VARIABLES:", import.meta.env);
+
 export const fetchMeals = async () => {
     const response = await axios.get(`${API_URL}/meals`);
     console.log(response.data);
@@ -13,4 +13,15 @@ export const fetchSpecMeal = async (id: string): Promise<any> => {
     const response = await axios.get(`${API_URL}/info/${id}`);
     console.log(`Info about specific meal here ${response.data}`);
     return response.data;
+}
+
+export const fetchFilteredMeals = async (filterType: "country" | "ingredient", filterValue: string) => {
+    try {
+        const response = await axios.get(`http://localhost:3000/meals/filter?${filterType}=${filterValue}`);
+        console.log("🔍 API response:", response.data);
+        return response.data;
+    } catch (error) {
+        console.error("❌ Помилка при отриманні фільтрованих рецептів:", error);
+        return [];
+    }
 }
