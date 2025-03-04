@@ -18,7 +18,7 @@ export class MealService {
             const response = await axios.get(url);
             return response.data.meals || [];
         } catch (error) {
-            throw new Error("Failed to fetch recepie or meal/s ❌");
+            throw new Error("Failed to fetch recepie or meal/s");
         }
     }
 }
