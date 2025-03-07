@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchSpecMeal, fetchFilteredMeals } from "../services/api";
 import { Meal } from "../types/Meal";
+import { motion } from "framer-motion";
 
 const ReceiptInfoPage = () => {
   const { idMeal } = useParams<{ idMeal?: string }>();
@@ -22,9 +23,11 @@ const ReceiptInfoPage = () => {
         const data = await fetchSpecMeal(idMeal);
         setMeal(data[0]);
 
-        // Якщо у нас є категорія, фільтруємо інші рецепти з тієї ж категорії
         if (data[0]?.strCategory) {
-          const relatedData = await fetchFilteredMeals("category", data[0].strCategory);
+          const relatedData = await fetchFilteredMeals(
+            "category",
+            data[0].strCategory
+          );
           setRelatedMeals(relatedData);
         }
       } catch (err) {
@@ -37,47 +40,72 @@ const ReceiptInfoPage = () => {
     loadMeal();
   }, [idMeal]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
-  if (!meal) return <p>Recipe not found</p>;
+  if (loading)
+    return <p className="text-center text-lg text-gray-500">Loading...</p>;
+  if (error) return <p className="text-center text-red-500">{error}</p>;
+  if (!meal)
+    return <p className="text-center text-gray-500">Recipe not found</p>;
 
   return (
-    <div className="p-6 max-w-6xl mx-auto flex flex-col md:flex-row gap-8">
-      <div className="flex-1">
-        <div className="flex items-center gap-6">
-          <img
-            src={meal.strMealThumb}
-            alt={meal.strMeal}
-            className="w-64 h-64 object-cover rounded-lg shadow-md"
-          />
-          <div className="text-center flex flex-col items-center">
-            <h2 className="text-3xl font-bold">{meal.strMeal || "name is undefined"}</h2>
-            <Link to={`/filter/country/${meal.strArea}`} className="text-blue-500 hover:underline mt-2">
-              {meal.strArea}
-            </Link>
-          </div>
-        </div>
-        <div className="mt-6 text-center">
-          <h3 className="text-2xl font-semibold mb-2">Instructions</h3>
-          <p className="text-gray-700">{meal.strInstructions || "instruction is undefined"}</p>
-        </div>
-      </div>
+<div className="p-6 md:pl-10 max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8">
 
-      <aside className="w-full md:w-80 bg-gray-100 p-4 rounded-lg shadow-md">
-        <h3 className="text-xl font-semibold mb-3">📌 Інші рецепти з {meal.strCategory}</h3>
-        <ul className="space-y-2">
-          {relatedMeals
-            .filter((relatedMeal) => relatedMeal.idMeal !== meal.idMeal) 
-            .map((relatedMeal) => (
-              <li key={relatedMeal.idMeal} className="bg-white p-2 rounded-md shadow hover:bg-gray-200">
-                <Link to={`/meal/${relatedMeal.idMeal}`} className="text-blue-500 hover:underline">
-                  {relatedMeal.strMeal}
-                </Link>
-              </li>
-            ))}
-        </ul>
-      </aside>
+  <div className="flex-1 w-full">
+    <div className="flex flex-col md:flex-row items-center gap-6">
+      <img
+        src={meal.strMealThumb}
+        alt={meal.strMeal}
+        className="w-80 h-80 object-cover rounded-lg shadow-lg"
+      />
+      <div className="text-center md:text-left">
+        <h2 className="text-3xl font-bold text-gray-900">{meal.strMeal || "Name is undefined"}</h2>
+        {meal.strArea && (
+          <Link to={`/filter/country/${meal.strArea}`} className="text-blue-500 hover:underline mt-2 block">
+            {meal.strArea}
+          </Link>
+        )}
+      </div>
     </div>
+
+
+    <div className="mt-4 text-left">
+      <h3 className="text-2xl font-semibold mb-3 text-center md:text-left">Instructions</h3>
+      {meal.strInstructions ? (
+        <div className="text-gray-700 space-y-4 leading-relaxed">
+          {meal.strInstructions.split(". ").map((sentence, index) => (
+            <p key={index}>{sentence}.</p>
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-500">Instructions are not available.</p>
+      )}
+    </div>
+  </div>
+
+ 
+  <aside className="w-full md:w-96 bg-white/30 backdrop-blur-md p-5 rounded-lg shadow-lg border border-white/20">
+    <h3 className="text-xl font-semibold mb-3">📌 Other recipes from {meal.strCategory || "this category"}</h3>
+    <ul className="space-y-3">
+      {relatedMeals
+        .filter((relatedMeal) => relatedMeal.idMeal !== meal.idMeal)
+        .map((relatedMeal) => (
+          <motion.li
+            key={relatedMeal.idMeal}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Link
+              to={`/meal/${relatedMeal.idMeal}`}
+              className="block bg-white p-3 rounded-md shadow-sm hover:bg-gray-200 hover:shadow-md transition"
+            >
+              {relatedMeal.strMeal}
+            </Link>
+          </motion.li>
+        ))}
+    </ul>
+  </aside>
+</div>
   );
 };
 
