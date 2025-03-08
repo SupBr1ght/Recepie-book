@@ -18,23 +18,25 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center space-y-6 p-6 shadow-lg rounded-lg">
-      <h1 className="text-2xl font-bold text-purple-900 pt-10 pb-4">
-        List all recepies
+    <div className="flex flex-col items-center space-y-6 p-10 max-w-7xl mx-auto">
+      {/* Заголовок */}
+      <h1 className="text-4xl font-extrabold text-gray-900 tracking-wide">
+        🍽️ Explore Delicious Recipes
       </h1>
+
       {loading ? (
-        <p>Loading...</p>
+        <p className="text-xl text-gray-600 ">Loading...</p>
       ) : meals.length === 0 ? (
-        <p className="text-center">❌ No meals found</p>
+        <p className="text-center text-lg text-gray-500">❌ No meals found</p>
       ) : (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-gray-800 bg-cyan-600 p-4 rounded-md w-full max-w-6xl">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-6xl">
           {meals.map((meal) => (
             <li key={meal.idMeal} className="w-full">
               <Link
                 to={`/meal/${meal.idMeal}`}
-                className="flex items-center gap-2 p-3 rounded-md bg-purple-300 w-full hover:bg-purple-400 transition shadow-md text-center justify-center"
+                className="flex items-center gap-3 p-4 rounded-xl bg-gradient-to-r from-gray-900 to-gray-800 text-white text-lg font-semibold shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
               >
-                {meal.strMeal}
+                🍲 {meal.strMeal}
               </Link>
             </li>
           ))}
