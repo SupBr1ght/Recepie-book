@@ -2,9 +2,13 @@ import express from "express";
 import mealRoutes from "./routes/mealRoutes";
 import infoRoutes from "./routes/infoRoutes";
 import cors from 'cors'
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 
 const app = express(); // Створюємо сервер
-const port = 3000;
+const port =  process.env.PORT;
 
 app.use(cors({
   origin: "http://localhost:5173", // 👈 Дозволяємо запити тільки з фронтенду

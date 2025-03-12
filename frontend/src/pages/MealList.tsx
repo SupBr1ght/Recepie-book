@@ -3,6 +3,8 @@ import { Meal } from "../types/Meal";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
+
+
 export default function MealList() {
   const { filterType, filterValue } = useParams<{
     filterType?: string;
