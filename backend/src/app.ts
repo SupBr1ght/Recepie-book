@@ -9,16 +9,17 @@ dotenv.config();
 
 console.log("🚀 CORS_ORIGIN from .env:", process.env.CORS_ORIGIN);
 
-const allowedOrigins = process.env.CORS_ORIGIN?.split(",") || [];
+const allowedOrigins = process.env.CORS_ORIGIN
+? process.env.CORS_ORIGIN.split(",").map(origin => origin.trim().replace(/\/$/, ""))
+: [];
 
-console.log("✅ ALLOWED ORIGINS:", allowedOrigins);
 
 const app = express(); 
-const port =  process.env.PORT;
+const port =  process.env.PORT || 4000
 const front_port = process.env.FRONT_PORT
 
 app.use(cors({
-  origin: `http://localhost:${front_port}`, 
+  origin: allowedOrigins,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type"]
 }));
