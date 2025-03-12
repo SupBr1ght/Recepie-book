@@ -14,7 +14,7 @@ export const fetchSpecMeal = async (id: string): Promise<any> => {
 
 export const fetchFilteredMeals = async (filterType: "country" | "ingredient"| "category", filterValue: string) => {
     try {
-        const response = await axios.get(`http://localhost:3000/meals?${filterType}=${filterValue}`);
+        const response = await axios.get(`${API_URL}/meals?${filterType}=${filterValue}`);
         return response.data;
     } catch (error) {
         return [];

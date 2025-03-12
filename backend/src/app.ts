@@ -7,11 +7,12 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 
-const app = express(); // Створюємо сервер
+const app = express(); 
 const port =  process.env.PORT;
+const front_port = process.env.FRONT_PORT
 
 app.use(cors({
-  origin: "http://localhost:5173", // 👈 Дозволяємо запити тільки з фронтенду
+  origin: `http://localhost:${front_port}`, 
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type"]
 }));
