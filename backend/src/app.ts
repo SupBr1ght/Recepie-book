@@ -7,6 +7,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 
+const allowedOrigins = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(",") : [];
+
+console.log("🚀 ALLOWED ORIGINS:", allowedOrigins); 
+
 const app = express(); 
 const port =  process.env.PORT;
 const front_port = process.env.FRONT_PORT
