@@ -10,9 +10,16 @@ import MealList from "./pages/MealList";
 function App() {
   const [meals, setMeals] = useState<Meal[]>([]);
 
+  
+
   useEffect(() => {
     fetchMeals().then(setMeals).catch(console.error);
   }, []);
+
+  <div>
+    {meals.length > 0 ? meals.map(meal => <p key={meal.idMeal}>{meal.strMeal}</p>) : <p>No meals found</p>}
+  </div>
+  
 
   return (
     <>
